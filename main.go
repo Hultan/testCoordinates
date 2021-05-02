@@ -22,6 +22,7 @@ func main() {
 		gtk.MainQuit()
 	})
 
+	// Tried with an EventBox surrounding the gtk.Fixed but it did not help
 	eventBox, _ := gtk.EventBoxNew()
 	fixed, _ := gtk.FixedNew()
 	textView, _ := gtk.TextViewNew()
@@ -37,6 +38,7 @@ func main() {
 		eventMotion := gdk.EventMotionNewFromEvent(e)
 		x, y := eventMotion.MotionVal()
 
+		// Tried to translate the coordinates to the window coordinates
 		xx,yy,_:=eventBox.TranslateCoordinates(win, int(x),int(y))
 
 		fmt.Println(x,y)
