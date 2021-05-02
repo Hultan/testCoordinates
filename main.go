@@ -37,7 +37,10 @@ func main() {
 		eventMotion := gdk.EventMotionNewFromEvent(e)
 		x, y := eventMotion.MotionVal()
 
+		xx,yy,_:=eventBox.TranslateCoordinates(win, int(x),int(y))
+
 		fmt.Println(x,y)
+		fmt.Println(xx,yy)
 	})
 
 	eventBox.Add(fixed)
