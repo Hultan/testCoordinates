@@ -26,7 +26,11 @@ func main() {
 	eventBox, _ := gtk.EventBoxNew()
 	fixed, _ := gtk.FixedNew()
 	textView, _ := gtk.TextViewNew()
+	textView.SetHasWindow(false)  // When set to false, the coords are correct, but doesn't show text
+											// When set to true, the coords are incorrect, but shows text
 	textView.SetSizeRequest(100,100)
+	buffer, _ :=textView.GetBuffer()
+	buffer.SetText("Test")
 	fixed.Put(textView, 100,100)
 
 	eventBox.Connect("button-press-event", func(eventBox *gtk.EventBox, e *gdk.Event) {
@@ -38,11 +42,7 @@ func main() {
 		eventMotion := gdk.EventMotionNewFromEvent(e)
 		x, y := eventMotion.MotionVal()
 
-		// Tried to translate the coordinates to the window coordinates
-		xx,yy,_:=eventBox.TranslateCoordinates(win, int(x),int(y))
-
 		fmt.Println(x,y)
-		fmt.Println(xx,yy)
 	})
 
 	eventBox.Add(fixed)
